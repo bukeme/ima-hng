@@ -47,12 +47,12 @@ const InvoiceItem = (invoice: Invoice) => {
       onClick={() => router.push(`/${invoice.id}`)}
       className="flex justify-between lg:justify-start items-center gap-8 lg:gap-4 rounded-2xl bg-[var(--color-card)] px-4 py-5 shadow-[0_10px_30px_rgba(37,42,70,0.08)] transition-transform duration-200 hover:-translate-y-0.5 border border-[var(--color-border)] cursor-pointer hover:border-[var(--purple)] sm:px-6"
     >
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8 lg:gap-4">
+      <div className="flex grow flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8 lg:gap-4">
         <div className="lg:min-w-[78px] shrink-0 font-bold tracking-tight text-[var(--primary-foreground)] lg:min-w-[88px] mb-2 sm:mb-0">
           <span className="text-[var(--color-card-foreground)]">#</span>
           {invoice.invoiceNumber}
         </div>
-        <div className="lg:in-w-[120px] shrink-0 text-sm text-[var(--color-card-foreground)]">
+        <div className="lg:min-w-[120px] shrink-0 text-sm text-[var(--color-card-foreground)]">
           {formatDate(invoice.dueDate)}
         </div>
         <div className="min-w-0 hidden sm:block flex-1 truncate text-sm text-[var(--color-card-foreground)]">
@@ -64,7 +64,7 @@ const InvoiceItem = (invoice: Invoice) => {
         </div>
       </div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8 lg:gap-4">
-        <div className="lg:min-w-[90px] text-right font-semibold text-[var(--primary-foreground)] hidden sm:block lg:hidden lg:min-w-[120px]">
+        <div className=" text-right font-semibold text-[var(--primary-foreground)] hidden sm:block lg:hidden lg:min-w-[120px]">
           £ {invoice.amount}
         </div>
         <div className="min-w-0 block sm:hidden flex-1 truncate text-sm mb-2 sm:mb-0 text-[var(--color-card-foreground)]">
