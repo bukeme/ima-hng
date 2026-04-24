@@ -11,9 +11,9 @@ import { useTheme } from "next-themes";
 const Sidebar = () => {
   const { setTheme, theme } = useTheme();
   return (
-    <aside className="h-screen sticky top-0 w-14 bg-[var(--color-sidebar)] flex flex-col justify-between rounded-r-lg">
-      <Image src={Group9Img} alt="logo" className="w-full" />
-      <div className="w-full space-y-3 flex flex-col items-center mb-3">
+    <aside className="h-14 lg:h-screen sticky top-0 w-full lg:w-14 bg-[var(--color-sidebar)] flex flex-row lg:flex-col justify-between lg:rounded-r-lg">
+      <Image src={Group9Img} alt="logo" className="w-14 lg:w-full" />
+      <div className="lg:w-full space-x-3 lg:space-x-0 lg:space-y-3 flex flex-row lg:flex-col items-center mr-3 lg:mr-0 lg:mb-3">
         {theme === "light" ? (
           <Icon
             onClick={() => setTheme("dark")}
@@ -29,7 +29,10 @@ const Sidebar = () => {
             className="cursor-pointer"
           />
         )}
-        <Separator />
+        <Separator
+          className="border-[var(--color-border)]"
+          orientation="vertical"
+        />
         <Avatar>
           <AvatarImage src={UserImage.src} alt="user-image" />
           <AvatarFallback>UK</AvatarFallback>

@@ -71,10 +71,10 @@ const InvoiceDetail = () => {
         <span>Go back</span>
       </Button>
       <div className="flex items-center justify-between bg-[var(--color-card)] rounded-xl shadow-[0_5px_10px_rgba(37,42,70,0.08)] p-6 mt-8">
-        <div className="flex items-center space-x-5">
+        <div className="flex flex-1 sm:flex-0 justify-between sm:justify-start items-center space-x-5">
           <p>Status</p>
           <div
-            className={`hidden items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold sm:flex ${statusStyles(
+            className={`items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold flex ${statusStyles(
               invoice.status
             )}`}
           >
@@ -84,7 +84,7 @@ const InvoiceDetail = () => {
             <span>{invoice.status}</span>
           </div>
         </div>
-        <div className="space-x-2">
+        <div className="hidden sm:block space-x-2">
           <Button
             onClick={() => openEdit(id as string)}
             className="text-[var(--color-muted-foreground)] bg-[var(--purple-light)] rounded-4xl px-5 py-5 cursor-pointer"
@@ -122,7 +122,7 @@ const InvoiceDetail = () => {
             </p>
           </div>
 
-          <div className="text-right text-sm text-[var(--color-card-foreground)] leading-6">
+          <div className="text-left sm:text-right text-sm text-[var(--color-card-foreground)] leading-6">
             <p>{invoice.billFromStreet}</p>
             <p>{invoice.billFromCity}</p>
             <p>{invoice.billFromPostCode}</p>
@@ -182,10 +182,10 @@ const InvoiceDetail = () => {
 
         <div className="w-full rounded-xl overflow-hidden bg-[var(--purple-light)] shadow-sm">
           <div className="px-8 pt-10 pb-8">
-            <div className="grid grid-cols-4 gap-4 text-[14px] font-medium text-[var(--color-card-foreground)]">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-[14px] font-medium text-[var(--color-card-foreground)] justify-between sm:justify-start">
               <div>Item Name</div>
-              <div className="text-center">QTY.</div>
-              <div>Price</div>
+              <div className="hidden sm:block text-center">QTY.</div>
+              <div className="hidden sm:block">Price</div>
               <div className="text-right">Total</div>
             </div>
 
@@ -193,15 +193,18 @@ const InvoiceDetail = () => {
               {invoice.items.map((item) => (
                 <div
                   key={item.name}
-                  className="grid grid-cols-4 gap-4 items-center text-[15px]"
+                  className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between sm:justify-start items-center text-[15px]"
                 >
                   <div className="font-semibold text-[var(--color-primary-foreground)]">
-                    {item.name}
+                    <div>{item.name}</div>
+                    <div className="font-semibold text-[var(--color-card-foreground)]">
+                      {item.quantity as number} x £ {item.price as number}
+                    </div>
                   </div>
-                  <div className="text-center font-semibold text-[var(--color-card-foreground)]">
+                  <div className="text-center font-semibold text-[var(--color-card-foreground)] hidden sm:block">
                     {item.quantity as number}
                   </div>
-                  <div className="font-semibold text-[var(--color-card-foreground)]">
+                  <div className="font-semibold text-[var(--color-card-foreground)] hidden sm:block">
                     £ {item.price as number}
                   </div>
                   <div className="text-right font-semibold text-[var(--color-primary-foreground)]">
@@ -222,6 +225,32 @@ const InvoiceDetail = () => {
               </span>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="flex sm:hidden items-center justify-between bg-[var(--color-card)] rounded-xl shadow-[0_5px_10px_rgba(37,42,70,0.08)] p-6 mt-8">
+        <div className="space-x-2 flex-1">
+          <Button
+            onClick={() => openEdit(id as string)}
+            className="text-[var(--color-muted-foreground)] bg-[var(--purple-light)] rounded-4xl px-5 py-5 cursor-pointer"
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={() => setOpenDelete(true)}
+            className="text-[var(--color-white)] bg-[var(--red)] rounded-4xl px-5 py-5 cursor-pointer"
+          >
+            Delete
+          </Button>
+          {invoice.status !== "Paid" && (
+            <Button
+              onClick={() => {
+                updateInvoiceStatus(id as string, "Paid");
+              }}
+              className="text-[var(--color-white)] bg-[var(--purple)] rounded-4xl px-5 py-5 cursor-pointer"
+            >
+              Mark as Paid
+            </Button>
+          )}
         </div>
       </div>
     </div>

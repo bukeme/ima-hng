@@ -70,18 +70,22 @@ export default function Home() {
   };
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 space-x-6">
         <div>
-          <h2 className="text-4xl font-bold text-[var(--color-primary-foreground)]">
+          <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-primary-foreground)]">
             Invoices
           </h2>
-          <p>These are {invoices.length} total invoices</p>
+          <p>
+            <span className="hidden sm:inline">These are</span>{" "}
+            {invoices.length} <span className="hidden sm:inline">total</span>{" "}
+            invoices
+          </p>
         </div>
         <div className="flex items-center space-x-4">
           <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 font-medium outline-none cursor-pointer text-[var(--color-primary-foreground)]">
-                Select Options
+                Filter <span className="hidden sm:inline">by status</span>
                 <ChevronDown
                   className={`h-4 w-4 transition-transform duration-200 text-[var(--purple)] ${
                     open ? "rotate-180" : "rotate-0"
@@ -121,7 +125,7 @@ export default function Home() {
             <div className="w-6 h-6 rounded-full bg-[var(--color-white)] flex items-center justify-center">
               <Plus className="text-[var(--purple)]" />
             </div>
-            New Invoice
+            New <span className="hidden sm:inline">Invoice</span>
           </Button>
         </div>
       </div>

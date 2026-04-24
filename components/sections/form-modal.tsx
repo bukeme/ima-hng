@@ -39,6 +39,7 @@ import {
 import { defaultValues, paymentTerms } from "@/lib/data";
 import { formSchema } from "@/lib/schema";
 import { LeftSheet } from "../shared/left-sheet";
+import { ChevronLeft } from "lucide-react";
 
 export function InvoiceFormSheet({
   createInvoiceNumber = "",
@@ -130,6 +131,13 @@ export function InvoiceFormSheet({
     <LeftSheet open={formOpen} onOpenChange={closeForm}>
       {/* HEADER */}
       <div className="px-6 py-5 sticky top-0 z-10">
+        <Button
+          className="bg-transparent outline-none text-[var(--color-primary-foreground)] cursor-pointer space-x-3 text-base p-0"
+          onClick={closeForm}
+        >
+          <ChevronLeft className="text-[var(--purple)]" />
+          <span>Go back</span>
+        </Button>
         <h2 className="text-xl font-bold text-[var(--color-primary-foreground)]">
           {mode === "edit" ? "Edit Invoice" : "New Invoice"}
         </h2>
@@ -325,7 +333,7 @@ export function InvoiceFormSheet({
                 <SectionTitle>Item List</SectionTitle>
 
                 <div className="space-y-3">
-                  <div className="grid grid-cols-[minmax(0,2.4fr)_72px_1fr_90px_28px] items-end gap-3 px-1 text-[0.72rem] font-medium text-slate-400">
+                  <div className="hidden sm:grid grid-cols-[minmax(0,2.4fr)_72px_1fr_90px_28px] items-end gap-3 px-1 text-[0.72rem] font-medium text-slate-400 ">
                     <span>Item Name</span>
                     <span>Qty.</span>
                     <span>Price</span>
@@ -344,19 +352,26 @@ export function InvoiceFormSheet({
                         key={field.id}
                         className="grid grid-cols-[minmax(0,2.4fr)_72px_1fr_90px_28px] items-start gap-3"
                       >
-                        <FieldBlock compact error={itemError?.name?.message}>
-                          <Input
-                            {...register(`items.${index}.name`)}
-                            className={cx(
-                              "h-10",
-                              inputClass(itemError?.name?.message)
-                            )}
-                            placeholder="Banner Design"
-                          />
-                        </FieldBlock>
+                        <div className="col-span-full sm:col-span-1">
+                          <FieldBlock
+                            label="Item name"
+                            compact
+                            error={itemError?.name?.message}
+                          >
+                            <Input
+                              {...register(`items.${index}.name`)}
+                              className={cx(
+                                "h-10",
+                                inputClass(itemError?.name?.message)
+                              )}
+                              placeholder="Banner Design"
+                            />
+                          </FieldBlock>
+                        </div>
 
                         <FieldBlock
                           compact
+                          label="Qty"
                           error={itemError?.quantity?.message}
                         >
                           <Input
@@ -374,7 +389,11 @@ export function InvoiceFormSheet({
                           />
                         </FieldBlock>
 
-                        <FieldBlock compact error={itemError?.price?.message}>
+                        <FieldBlock
+                          compact
+                          label="Price"
+                          error={itemError?.price?.message}
+                        >
                           <Input
                             type="number"
                             min={0.01}
@@ -390,8 +409,16 @@ export function InvoiceFormSheet({
                           />
                         </FieldBlock>
 
-                        <div className="pt-2 text-sm font-medium text-slate-400">
-                          {formatMoney(lineTotal)}
+                        <div className="pt-2 text-sm font-medium text-slate-400 h-full">
+                          <Label
+                            className={cx(
+                              "text-[0.72rem] font-medium text-[var(--color-card-foreground)]",
+                              "sm:hidden"
+                            )}
+                          >
+                            Total
+                          </Label>
+                          <div className="mt-4">{formatMoney(lineTotal)}</div>
                         </div>
 
                         <button
@@ -512,11 +539,13 @@ function FieldBlock({
   error,
   children,
   compact = false,
+  showLabelSS,
 }: {
   label?: string;
   error?: string;
   children: React.ReactNode;
   compact?: boolean;
+  showLabelSS?: boolean;
 }) {
   return (
     <div className={cx("space-y-2", compact && "space-y-1")}>
@@ -524,7 +553,8 @@ function FieldBlock({
         <Label
           className={cx(
             "text-[0.72rem] font-medium text-[var(--color-card-foreground)]",
-            error && "text-[var(--red)]"
+            error && "text-[var(--red)]",
+            showLabelSS && "sm:hidden"
           )}
         >
           {label}

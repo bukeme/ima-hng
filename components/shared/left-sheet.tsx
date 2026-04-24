@@ -19,15 +19,15 @@ export function LeftSheet({
         {/* Overlay (offset from sidebar) */}
         <Dialog.Overlay
           className={cn(
-            "fixed top-0 right-0 bottom-0 left-14 z-40 bg-black/40 backdrop-blur-sm"
+            "fixed top-0 right-0 bottom-0 lg:left-14 z-40 bg-black/40 backdrop-blur-sm"
           )}
         />
 
         {/* Sheet */}
         <Dialog.Content
           className={cn(
-            "fixed top-0 bottom-0 left-14 z-50",
-            "w-full max-w-[720px]",
+            "fixed top-0 bottom-0 lg:left-14 z-50",
+            "w-full max-w-[640px]",
             "bg-[var(--color-secondary)] shadow-xl",
             "flex flex-col"
           )}

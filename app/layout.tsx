@@ -37,10 +37,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex">
+          <div className="min-h-screen flex flex-col lg:flex-row">
             <Sidebar />
             <InvoiceFormSheet createInvoiceNumber={generateInvoiceNumber()} />
-            <main className="p-6 mx-auto w-[800px]">{children}</main>
+            <main className="p-6 mx-auto w-full lg:w-[800px]">{children}</main>
           </div>
         </ThemeProvider>
       </body>
